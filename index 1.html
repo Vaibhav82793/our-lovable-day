@@ -1,847 +1,2092 @@
+<!--
+GITHUB PAGES:
+1. Save this file as index.html.
+2. Upload it to the root of a GitHub repository.
+3. Open repository Settings > Pages.
+4. Select "Deploy from a branch", choose "main" and "/ (root)", then save.
+5. GitHub will display the public link after deployment.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#F8D7DA" />
-<title>A little letter for you 💌</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#681b35">
+  <meta name="description" content="A romantic and interactive date-night invitation.">
+  <title>A Little Invitation for You</title>
 
-<!-- Google Fonts: script for headings, soft serif + light sans for body -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --burgundy: #681b35;
+      --burgundy-dark: #3c0d20;
+      --wine: #8f2948;
+      --soft-red: #c94f68;
+      --blush: #f8d8df;
+      --rose: #ebaab8;
+      --cream: #fff8ed;
+      --gold: #d8a84e;
+      --gold-light: #f4d58d;
+      --ink: #3a1824;
+      --muted: #735663;
+      --white: #ffffff;
+      --success: #4d7c61;
+      --danger: #9d2946;
+      --shadow: 0 24px 70px rgba(60, 13, 32, 0.22);
+      --soft-shadow: 0 12px 35px rgba(60, 13, 32, 0.14);
+      --radius: 28px;
+      --transition: 500ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
-<style>
-/* =========================================================
-   1. DESIGN TOKENS
-   ========================================================= */
-:root{
-  --blush:#F8D7DA;
-  --rose:#F4A7B9;
-  --cream:#FFF8F0;
-  --peach:#FFD8BE;
-  --mauve:#C08497;
-  --gold:#D4AF37;
-  --ink:#5a3a46;          /* soft plum-brown text */
-  --ink-soft:#8a6371;
-  --glass:rgba(255,248,240,.72);
-  --glass-border:rgba(255,255,255,.65);
-  --shadow:0 18px 40px -18px rgba(120,60,80,.45);
-  --radius:24px;
-  --ease:cubic-bezier(.22,.8,.26,1);
-  --script:'Great Vibes', cursive;
-  --serif:'Cormorant Garamond', Georgia, serif;
-  --sans:'Poppins', system-ui, sans-serif;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%}
-body{
-  font-family:var(--serif);
-  color:var(--ink);
-  background:linear-gradient(160deg,var(--cream) 0%,var(--blush) 55%,var(--peach) 100%);
-  overflow:hidden;
-  min-height:100dvh;
-  -webkit-font-smoothing:antialiased;
-}
-button{font-family:var(--sans);cursor:pointer;border:none}
+    html {
+      scroll-behavior: smooth;
+    }
 
-/* Film-grain softness overlay (inline SVG noise, no external file) */
-body::after{
-  content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.10;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .3  0 0 0 0 .35  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-}
+    body {
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(244, 213, 141, 0.23), transparent 32%),
+        radial-gradient(circle at 90% 18%, rgba(235, 170, 184, 0.28), transparent 35%),
+        radial-gradient(circle at 50% 100%, rgba(143, 41, 72, 0.15), transparent 45%),
+        linear-gradient(145deg, #fffaf1 0%, #fbe3e7 52%, #f4ced8 100%);
+    }
 
-/* =========================================================
-   2. MOOD BACKGROUND LAYERS (change per timeline stop)
-   ========================================================= */
-#mood{position:fixed;inset:0;z-index:0;pointer-events:none}
-.mood-layer{position:absolute;inset:0;opacity:0;transition:opacity 1.6s var(--ease)}
-.mood-layer.on{opacity:1}
-.mood-default {background:linear-gradient(160deg,var(--cream) 0%,var(--blush) 55%,var(--peach) 100%)}
-.mood-shopping{background:radial-gradient(circle at 20% 15%,#fff3e6 0%,transparent 45%),linear-gradient(165deg,#FFE4CF 0%,var(--peach) 50%,#FFC9B0 100%)}
-.mood-home    {background:radial-gradient(circle at 75% 20%,#fffdf8 0%,transparent 50%),linear-gradient(170deg,var(--cream) 0%,#F9EBDD 60%,#F3DCCB 100%)}
-.mood-dinner  {background:linear-gradient(170deg,#7a2f45 0%,#5a2034 55%,#3e1525 100%)}
-.mood-walk    {background:linear-gradient(180deg,#1f2a4a 0%,#34406b 55%,#6b5a86 100%)}
-.mood-cocoa   {background:radial-gradient(circle at 50% 110%,#a66a4a 0%,transparent 55%),linear-gradient(175deg,#5b3a2e 0%,#4a2e24 60%,#3a231b 100%)}
+    button,
+    input,
+    a {
+      font: inherit;
+    }
 
-/* candle glow for dinner */
-.candle-glow{position:absolute;border-radius:50%;filter:blur(30px);background:radial-gradient(circle,rgba(255,196,120,.55),rgba(255,140,90,0) 70%);animation:flicker 3.2s ease-in-out infinite}
-.candle-glow.g1{width:280px;height:280px;left:-60px;bottom:10%}
-.candle-glow.g2{width:220px;height:220px;right:-40px;top:18%;animation-delay:-1.4s}
-@keyframes flicker{0%,100%{opacity:.75;transform:scale(1)}30%{opacity:1;transform:scale(1.06)}55%{opacity:.65;transform:scale(.97)}80%{opacity:.9;transform:scale(1.03)}}
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-/* twinkling stars for walk */
-.star{position:absolute;width:2px;height:2px;border-radius:50%;background:#fff;box-shadow:0 0 6px #fff;animation:twinkle 3s ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
-.moon{position:absolute;top:9%;right:12%;width:64px;height:64px;border-radius:50%;background:#fff6e0;box-shadow:0 0 40px 10px rgba(255,246,224,.35),inset -14px -6px 0 0 #f1e2bf}
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible {
+      outline: 4px solid rgba(216, 168, 78, 0.48);
+      outline-offset: 4px;
+    }
 
-/* cozy steam for cocoa background */
-.bg-steam{position:absolute;bottom:-40px;width:120px;height:260px;border-radius:50%;filter:blur(22px);background:rgba(255,235,220,.16);animation:bgSteam 9s ease-in-out infinite}
-.bg-steam.s1{left:10%}.bg-steam.s2{left:45%;animation-delay:-3s}.bg-steam.s3{left:75%;animation-delay:-6s}
-@keyframes bgSteam{0%{transform:translateY(40px) scaleX(.8);opacity:0}40%{opacity:1}100%{transform:translateY(-70vh) scaleX(1.4);opacity:0}}
+    button {
+      border: 0;
+    }
 
-/* =========================================================
-   3. FLOATING HEARTS & PETALS (ambient)
-   ========================================================= */
-#ambient{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
-.float{position:absolute;bottom:-40px;opacity:0;animation:floatUp linear infinite}
-.float.heart{color:var(--rose)}
-.float.petal{width:14px;height:18px;background:linear-gradient(135deg,#fbc3cf,#F4A7B9);border-radius:80% 0 80% 0;box-shadow:inset -2px -2px 4px rgba(192,132,151,.4)}
-.float.sparkle{color:var(--gold);font-size:12px}
-@keyframes floatUp{
-  0%{transform:translate(0,0) rotate(0);opacity:0}
-  10%{opacity:.85}
-  50%{transform:translate(var(--drift),-55vh) rotate(180deg)}
-  90%{opacity:.7}
-  100%{transform:translate(calc(var(--drift)*-1),-110vh) rotate(360deg);opacity:0}
-}
+    .background-decoration {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
 
-/* tap hearts */
-.tap-heart{position:fixed;z-index:70;pointer-events:none;color:var(--rose);font-size:22px;transform:translate(-50%,-50%);animation:tapRise 1.6s var(--ease) forwards;text-shadow:0 2px 8px rgba(192,132,151,.4)}
-@keyframes tapRise{0%{opacity:0;transform:translate(-50%,-50%) scale(.4)}20%{opacity:1;transform:translate(-50%,-70%) scale(1.1)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),-260%) scale(.9) rotate(var(--rot))}}
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      filter: blur(20px);
+      opacity: 0.25;
+    }
 
-/* =========================================================
-   4. TOP BAR: progress hearts + music toggle
-   ========================================================= */
-.topbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:center;align-items:center;padding:calc(14px + env(safe-area-inset-top)) 16px 10px}
-.progress{display:flex;gap:10px;padding:8px 14px;border-radius:999px;background:rgba(255,248,240,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);box-shadow:0 6px 18px -10px rgba(120,60,80,.4)}
-.progress span{font-size:15px;line-height:1;color:rgba(192,132,151,.35);transition:color .8s var(--ease),transform .8s var(--ease)}
-.progress span.done{color:var(--mauve)}
-.progress span.current{color:#e46f8f;transform:scale(1.3)}
-.music-btn{position:absolute;right:14px;top:calc(10px + env(safe-area-inset-top));width:48px;height:48px;border-radius:50%;background:rgba(255,248,240,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);box-shadow:0 6px 18px -10px rgba(120,60,80,.5);display:grid;place-items:center;color:var(--mauve);transition:transform .4s var(--ease)}
-.music-btn:active{transform:scale(.92)}
-.music-btn svg{width:22px;height:22px}
-.music-btn.playing{color:#e46f8f;animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(244,167,185,.5)}50%{box-shadow:0 0 0 10px rgba(244,167,185,0)}}
+    .glow-one {
+      top: -120px;
+      left: -120px;
+      background: var(--gold-light);
+    }
 
-/* =========================================================
-   5. SCREENS & TRANSITIONS
-   ========================================================= */
-.screen{
-  position:fixed;inset:0;z-index:10;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:calc(80px + env(safe-area-inset-top)) 22px calc(32px + env(safe-area-inset-bottom));
-  opacity:0;visibility:hidden;transform:translateY(24px);
-  transition:opacity 1s var(--ease),transform 1s var(--ease),visibility 0s linear 1s;
-  text-align:center;
-}
-.screen.active{opacity:1;visibility:visible;transform:none;transition:opacity 1.1s var(--ease) .15s,transform 1.1s var(--ease) .15s,visibility 0s}
-.screen.leaving{opacity:0;transform:translateY(-24px)}
+    .glow-two {
+      right: -160px;
+      bottom: -100px;
+      background: var(--wine);
+    }
 
-.script{font-family:var(--script);font-weight:400;color:#b45f7a;line-height:1.1}
-.eyebrow{font-family:var(--sans);font-weight:300;letter-spacing:.28em;text-transform:uppercase;font-size:11px;color:var(--ink-soft)}
-.glass{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--glass-border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .floating-heart {
+      position: absolute;
+      bottom: -50px;
+      color: rgba(104, 27, 53, 0.14);
+      animation: floatUp var(--duration, 14s) linear infinite;
+      animation-delay: var(--delay, 0s);
+      font-size: var(--size, 20px);
+    }
 
-.btn{
-  min-height:52px;padding:14px 30px;border-radius:999px;font-size:15px;font-weight:400;letter-spacing:.03em;
-  color:#fff;background:linear-gradient(135deg,#e98aa3,var(--mauve));
-  box-shadow:0 12px 26px -12px rgba(192,132,151,.9),inset 0 1px 0 rgba(255,255,255,.35);
-  transition:transform .5s var(--ease),box-shadow .5s var(--ease),opacity .6s var(--ease);
-}
-.btn:hover{transform:translateY(-2px)}
-.btn:active{transform:scale(.96)}
-.btn.ghost{background:rgba(255,248,240,.75);color:var(--mauve);border:1px solid rgba(192,132,151,.35);box-shadow:0 8px 20px -14px rgba(120,60,80,.6)}
+    .sparkle {
+      position: absolute;
+      color: rgba(216, 168, 78, 0.48);
+      animation: twinkle 2.8s ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
 
-/* =========================================================
-   6. SCREEN 1: ENVELOPE
-   ========================================================= */
-.env-intro{margin-bottom:34px}
-.env-intro .script{font-size:clamp(38px,11vw,54px)}
-.env-intro p{margin-top:8px;font-size:19px;font-style:italic;color:var(--ink-soft)}
+    .app-shell {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 780px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      display: flex;
+      flex-direction: column;
+    }
 
-.envelope{position:relative;width:min(82vw,340px);aspect-ratio:10/7;perspective:1200px;cursor:pointer;animation:breathe 4s ease-in-out infinite;filter:drop-shadow(0 22px 30px rgba(120,60,80,.28))}
-.envelope.open{animation:none}
-@keyframes breathe{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}
-.env-back{position:absolute;inset:0;border-radius:14px;background:linear-gradient(160deg,#eea0b3,#dc8aa0)}
-.letter{
-  position:absolute;left:7%;right:7%;top:7%;height:88%;z-index:2;border-radius:10px;
-  background:linear-gradient(180deg,#fffdf9,var(--cream));box-shadow:0 4px 14px rgba(120,60,80,.15);
-  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:12%;
-  transition:transform 1.3s var(--ease) .55s;
-}
-.letter .script{font-size:clamp(26px,8vw,34px)}
-.letter small{font-family:var(--sans);font-weight:300;font-size:11px;letter-spacing:.2em;color:var(--ink-soft);margin-top:6px;text-transform:uppercase}
-.letter .tiny-heart{color:var(--gold);margin-top:8px;font-size:14px}
-.env-front{position:absolute;inset:0;z-index:3;border-radius:14px;background:linear-gradient(170deg,#f6b6c5,#f0a3b6);clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%)}
-.env-front::after{content:"";position:absolute;inset:0;background:linear-gradient(20deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.18) 50%,rgba(255,255,255,0) 60%)}
-.flap{position:absolute;top:0;left:0;width:100%;height:62%;z-index:4;transform-origin:top center;
-  background:linear-gradient(180deg,#e993a8,#dd8199);clip-path:polygon(0 0,100% 0,50% 100%);border-radius:14px 14px 0 0;
-  transition:transform .9s var(--ease),z-index 0s linear .45s}
-.envelope.open .flap{transform:rotateX(180deg);z-index:1}
-.envelope.open .letter{transform:translateY(-58%)}
-.seal{position:absolute;left:50%;top:62%;z-index:5;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#e8738f,#b8455f 70%);box-shadow:0 4px 10px rgba(110,30,50,.45),inset 0 -3px 6px rgba(0,0,0,.2),inset 0 2px 4px rgba(255,255,255,.3);
-  display:grid;place-items:center;color:#fbe3e8;font-size:24px;transition:transform .6s var(--ease),opacity .5s}
-.seal::before{content:"";position:absolute;inset:5px;border-radius:50%;border:1.5px dashed rgba(255,220,228,.55)}
-.envelope.open .seal{transform:scale(.3) rotate(40deg);opacity:0}
-.tap-hint{margin-top:30px;font-family:var(--sans);font-weight:300;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);animation:hint 2.2s ease-in-out infinite}
-@keyframes hint{0%,100%{opacity:.45}50%{opacity:1}}
-#toQuestion{margin-top:26px;opacity:0;pointer-events:none;transform:translateY(10px)}
-#toQuestion.show{opacity:1;pointer-events:auto;transform:none}
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      margin: 4px 0 18px;
+      color: var(--burgundy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.93rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
 
-/* burst hearts */
-.burst{position:fixed;z-index:65;pointer-events:none;font-size:20px;color:#e46f8f;animation:burst 1.5s var(--ease) forwards}
-@keyframes burst{0%{transform:translate(-50%,-50%) scale(.2);opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1) rotate(var(--r));opacity:0}}
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(104, 27, 53, 0.2);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.54);
+    }
 
-/* =========================================================
-   7. SCREEN 2: THE QUESTION
-   ========================================================= */
-.q-card{padding:38px 26px 34px;width:min(92vw,420px)}
-.q-card .emoji{font-size:44px;animation:breathe 3.5s ease-in-out infinite;display:inline-block}
-.q-card h1{font-size:clamp(38px,11vw,52px);margin:10px 0 6px}
-.q-card p{font-size:18px;font-style:italic;color:var(--ink-soft)}
-.choices{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:28px;min-height:70px;flex-wrap:wrap}
-#yesBtn{transform:scale(var(--s,1));font-size:17px;padding:14px 34px}
-#noBtn{white-space:nowrap;transition:left .55s var(--ease),top .55s var(--ease),transform .55s var(--ease),background .4s}
-#noBtn.runaway{position:fixed;z-index:55}
-#noBtn.converted{background:linear-gradient(135deg,#e98aa3,var(--mauve));color:#fff;border:none}
-.yes-result{display:none;margin-top:6px}
-.yes-result.show{display:block;animation:rise 1s var(--ease)}
-.yes-result h2{font-size:clamp(34px,10vw,46px);margin-bottom:22px}
-@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+    .progress-wrapper {
+      width: min(100%, 580px);
+      margin: 0 auto 20px;
+      padding: 13px 15px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 9px 28px rgba(60, 13, 32, 0.08);
+      backdrop-filter: blur(14px);
+    }
 
-/* =========================================================
-   8. SCREEN 3: TIMELINE
-   ========================================================= */
-#s3{justify-content:flex-start;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:0;scroll-behavior:smooth}
-.plan-head{margin-bottom:26px;transition:color 1.2s}
-.plan-head h1{font-size:clamp(40px,12vw,56px);transition:color 1.2s}
-.plan-head p{font-size:18px;font-style:italic;color:var(--ink-soft);transition:color 1.2s}
-body.dark .plan-head h1{color:#ffd9e2}
-body.dark .plan-head p,body.dark .plan-head .eyebrow{color:#f3d9df}
+    .progress-track {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: center;
+      position: relative;
+    }
 
-.timeline{position:relative;width:min(100%,460px);padding-left:58px;text-align:left}
-.track{position:absolute;left:24px;top:8px;bottom:8px;width:0;border-left:3px dotted rgba(192,132,151,.4)}
-body.dark .track{border-left-color:rgba(255,220,228,.3)}
-.track-fill{position:absolute;left:24px;top:8px;width:3px;height:0;transform:translateX(0);
-  background:repeating-linear-gradient(180deg,var(--gold) 0 4px,transparent 4px 9px);
-  transition:height 1.4s var(--ease);filter:drop-shadow(0 0 4px rgba(212,175,55,.6))}
-.traveler{position:absolute;left:25.5px;top:8px;transform:translate(-50%,-50%);font-size:20px;color:#e46f8f;z-index:3;
-  transition:top 1.4s var(--ease);filter:drop-shadow(0 2px 6px rgba(228,111,143,.6));animation:beat 1.4s ease-in-out infinite}
-@keyframes beat{0%,100%{scale:1}20%{scale:1.25}40%{scale:1}60%{scale:1.15}}
+    .progress-track::before {
+      content: "";
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      top: 15px;
+      height: 2px;
+      background: rgba(104, 27, 53, 0.14);
+      z-index: 0;
+    }
 
-.stop{position:relative;margin-bottom:26px;display:none}
-.stop.visible{display:block;animation:stopIn 1.1s var(--ease) both}
-@keyframes stopIn{from{opacity:0;transform:translateY(30px) scale(.97)}to{opacity:1;transform:none}}
-.stop::before{content:"";position:absolute;left:-41px;top:26px;width:16px;height:16px;border-radius:50%;
-  background:var(--cream);border:3px solid var(--rose);box-shadow:0 0 0 5px rgba(244,167,185,.25)}
-.stop .time{font-family:var(--sans);font-weight:400;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--mauve);margin-bottom:8px;display:block}
-body.dark .stop .time{color:#ffd0dc}
+    .progress-fill {
+      position: absolute;
+      left: 10%;
+      top: 15px;
+      height: 2px;
+      width: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, var(--gold), var(--wine));
+      transition: width var(--transition);
+    }
 
-/* flip card */
-.card{perspective:1200px;cursor:pointer}
-.card-inner{display:grid;transform-style:preserve-3d;transition:transform 1s var(--ease)}
-.card.flipped .card-inner{transform:rotateY(180deg)}
-.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:22px 20px 18px;border-radius:var(--radius);
-  background:rgba(255,248,240,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--glass-border);box-shadow:var(--shadow)}
-.face.back{transform:rotateY(180deg);background:linear-gradient(150deg,#fff6f2,#fde3e8);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
-.face .icon{font-size:34px;display:inline-block;margin-bottom:6px}
-.face h3{font-family:var(--script);font-weight:400;font-size:32px;color:#b45f7a;line-height:1.1;margin-bottom:6px}
-.face p{font-size:18px;line-height:1.45;color:var(--ink)}
-.face .place{display:inline-block;margin-top:10px;font-family:var(--sans);font-size:12px;font-weight:300;color:var(--ink-soft);background:rgba(244,167,185,.18);padding:5px 12px;border-radius:999px}
-.unlock{display:flex;align-items:center;gap:8px;margin-top:14px;font-family:var(--sans);font-size:12px;font-weight:300;letter-spacing:.08em;color:var(--mauve)}
-.unlock .lock{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:rgba(212,175,55,.15);color:var(--gold);font-size:13px}
-.face.back .label{font-family:var(--sans);font-weight:300;font-size:10.5px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-.face.back p{font-family:var(--serif);font-style:italic;font-size:21px;color:#7a4256}
-.face.back .sig{font-family:var(--script);font-size:24px;color:#b45f7a;margin-top:10px}
+    .step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.67rem;
+      text-align: center;
+    }
 
-/* mug with steam (stop 5) */
-.mug-wrap{position:relative;display:inline-block}
-.steam{position:absolute;bottom:80%;width:6px;height:22px;border-radius:6px;background:rgba(200,160,150,.55);filter:blur(2px);opacity:0;animation:steam 2.8s ease-in-out infinite}
-.steam:nth-child(1){left:8px}.steam:nth-child(2){left:15px;animation-delay:.9s}.steam:nth-child(3){left:22px;animation-delay:1.8s}
-@keyframes steam{0%{transform:translateY(6px) scaleY(.6);opacity:0}30%{opacity:.9}100%{transform:translateY(-20px) translateX(4px) scaleY(1.3);opacity:0}}
+    .step-dot {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(104, 27, 53, 0.15);
+      border-radius: 50%;
+      background: #fff8f7;
+      color: var(--muted);
+      font-weight: 800;
+      transition: var(--transition);
+    }
 
-.plan-footer{position:sticky;bottom:0;width:100%;display:flex;justify-content:center;padding:22px 0 calc(24px + env(safe-area-inset-bottom));margin-top:auto;
-  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(0,0,0,0))}
-.plan-spacer{height:10px;flex-shrink:0}
+    .step.active .step-dot,
+    .step.complete .step-dot {
+      border-color: var(--gold);
+      background: var(--burgundy);
+      color: var(--white);
+      box-shadow: 0 0 0 5px rgba(216, 168, 78, 0.12);
+    }
 
-/* =========================================================
-   9. SCREEN 4: FINALE
-   ========================================================= */
-#s4{overflow-y:auto}
-.finale{width:min(92vw,440px);padding:34px 22px 28px}
-.finale h1{font-size:clamp(40px,12vw,56px)}
-.finale .date{margin-top:6px;font-size:20px;font-weight:500;color:var(--ink)}
-.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0 22px}
-.cd{padding:12px 4px;border-radius:18px;background:rgba(255,255,255,.6);border:1px solid rgba(244,167,185,.4)}
-.cd b{display:block;font-family:var(--serif);font-weight:600;font-size:30px;color:#b45f7a;line-height:1}
-.cd span{font-family:var(--sans);font-size:10px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
-.cd-done{font-family:var(--script);font-size:32px;color:#b45f7a;margin:20px 0}
-.dress{margin:22px 0 4px;padding:16px 18px;border-radius:18px;background:linear-gradient(135deg,rgba(255,216,190,.55),rgba(248,215,218,.6));border:1px dashed rgba(212,175,55,.6);font-size:17px;line-height:1.45}
-.dress strong{font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:4px}
-.signature{margin-top:22px}
-.signature small{font-style:italic;font-size:17px;color:var(--ink-soft)}
-.signature .script{font-size:40px;display:block;margin-top:2px}
+    .step.active {
+      color: var(--burgundy);
+      font-weight: 700;
+    }
 
-/* confetti canvas */
-#fx{position:fixed;inset:0;z-index:65;pointer-events:none}
+    main {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      display: grid;
+      align-items: center;
+    }
 
-/* =========================================================
-   10. DESKTOP POLISH
-   ========================================================= */
-@media (min-width:768px){
-  .face p{font-size:19px}
-  .q-card,.finale{padding-left:40px;padding-right:40px}
-}
+    .screen {
+      display: none;
+      width: 100%;
+      padding: 4px 0 30px;
+    }
 
-/* =========================================================
-   11. REDUCED MOTION
-   ========================================================= */
-@media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.25s !important;transition-delay:0s !important}
-  .float{display:none}
-}
-</style>
+    .screen.active {
+      display: block;
+      animation: screenIn 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .screen.leaving {
+      display: block;
+      position: absolute;
+      inset: 0;
+      animation: screenOut 300ms ease both;
+    }
+
+    .card {
+      position: relative;
+      width: min(100%, 620px);
+      margin: 0 auto;
+      padding: clamp(26px, 6vw, 48px);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.82);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.78), rgba(255, 248, 237, 0.64));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      text-align: center;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      top: -85px;
+      right: -65px;
+      border-radius: 50%;
+      background: rgba(216, 168, 78, 0.13);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      bottom: -120px;
+      left: -100px;
+      border-radius: 50%;
+      background: rgba(143, 41, 72, 0.1);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--burgundy-dark);
+    }
+
+    h1,
+    h2 {
+      margin: 0 0 16px;
+      font-size: clamp(2rem, 8vw, 3.55rem);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    h3 {
+      margin: 0 0 7px;
+      font-size: 1.14rem;
+    }
+
+    p {
+      line-height: 1.68;
+    }
+
+    .subtitle {
+      max-width: 480px;
+      margin: 0 auto 27px;
+      color: var(--muted);
+      font-size: clamp(0.98rem, 3.5vw, 1.1rem);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 17px;
+      padding: 7px 12px;
+      border: 1px solid rgba(216, 168, 78, 0.35);
+      border-radius: 999px;
+      background: rgba(255, 248, 237, 0.62);
+      color: var(--wine);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .primary-button,
+    .secondary-button,
+    .whatsapp-button {
+      position: relative;
+      min-height: 54px;
+      padding: 15px 23px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 800;
+      line-height: 1.15;
+      transition:
+        transform 260ms ease,
+        box-shadow 260ms ease,
+        opacity 260ms ease,
+        width 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        font-size 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .primary-button {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--burgundy), var(--soft-red));
+      box-shadow: 0 13px 30px rgba(104, 27, 53, 0.25);
+    }
+
+    .primary-button:hover,
+    .whatsapp-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 17px 36px rgba(104, 27, 53, 0.3);
+    }
+
+    .primary-button:active,
+    .secondary-button:active,
+    .whatsapp-button:active {
+      transform: scale(0.98);
+    }
+
+    .secondary-button {
+      border: 1px solid rgba(104, 27, 53, 0.25);
+      color: var(--burgundy);
+      background: rgba(255, 255, 255, 0.68);
+    }
+
+    .secondary-button:hover {
+      background: var(--white);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .primary-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.52;
+      box-shadow: none;
+    }
+
+    .text-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px;
+      border: 0;
+      border-radius: 8px;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .text-button:hover {
+      color: var(--burgundy);
+    }
+
+    .envelope-stage {
+      height: 230px;
+      margin: 2px auto 15px;
+      display: grid;
+      place-items: center;
+      perspective: 1000px;
+    }
+
+    .envelope {
+      position: relative;
+      width: min(290px, 82vw);
+      height: 180px;
+      filter: drop-shadow(0 18px 24px rgba(60, 13, 32, 0.2));
+      animation: envelopeFloat 3.5s ease-in-out infinite;
+    }
+
+    .envelope-body {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border-radius: 10px;
+      background: linear-gradient(145deg, #f8ccd5, #e99cac);
+    }
+
+    .envelope-body::before,
+    .envelope-body::after {
+      content: "";
+      position: absolute;
+      bottom: -50px;
+      width: 220px;
+      height: 220px;
+      background: #f4b8c4;
+      transform: rotate(45deg);
+    }
+
+    .envelope-body::before {
+      left: -113px;
+    }
+
+    .envelope-body::after {
+      right: -113px;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 4;
+      width: 100%;
+      height: 105px;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      background: linear-gradient(150deg, #edabb9, #d98298);
+      transform-origin: top;
+      transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .letter {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: 12px;
+      z-index: 3;
+      height: 148px;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      border-radius: 7px;
+      background: var(--cream);
+      color: var(--burgundy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .wax-seal {
+      position: absolute;
+      left: 50%;
+      top: 71px;
+      z-index: 5;
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border: 4px double rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      color: var(--gold-light);
+      background: radial-gradient(circle at 35% 30%, #b94e68, var(--burgundy));
+      box-shadow: 0 8px 15px rgba(60, 13, 32, 0.26);
+      transform: translateX(-50%);
+      transition: opacity 300ms ease, transform 400ms ease;
+    }
+
+    .envelope.opening {
+      animation: none;
+    }
+
+    .envelope.opening .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    .envelope.opening .letter {
+      transform: translateY(-92px);
+    }
+
+    .envelope.opening .wax-seal {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.6);
+    }
+
+    .question-actions {
+      position: relative;
+      width: 100%;
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 25px auto 4px;
+    }
+
+    #yesButton,
+    #noButton {
+      max-width: 100%;
+      white-space: normal;
+    }
+
+    #yesButton {
+      z-index: 3;
+      flex: 0 1 auto;
+      transform-origin: center;
+    }
+
+    #noButton {
+      z-index: 2;
+      transition:
+        transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 350ms ease,
+        width 420ms ease,
+        padding 420ms ease,
+        font-size 420ms ease;
+    }
+
+    #yesButton.final-growth {
+      width: 100%;
+      min-height: 76px;
+      font-size: 1.12rem;
+      animation: heartbeat 1.25s ease-in-out infinite;
+    }
+
+    #noButton.hidden-no {
+      width: 0;
+      min-width: 0;
+      padding-left: 0;
+      padding-right: 0;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0);
+    }
+
+    .playful-message {
+      min-height: 30px;
+      margin: 14px 0 0;
+      color: var(--wine);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.03rem;
+      font-weight: 700;
+    }
+
+    .decline-message {
+      display: none;
+      margin-top: 20px;
+      padding: 17px;
+      border: 1px solid rgba(216, 168, 78, 0.3);
+      border-radius: 17px;
+      color: var(--muted);
+      background: rgba(255, 248, 237, 0.68);
+    }
+
+    .decline-message.visible {
+      display: block;
+      animation: fadeUp 450ms ease both;
+    }
+
+    .date-form {
+      max-width: 430px;
+      margin: 0 auto;
+    }
+
+    .date-label {
+      display: block;
+      margin-bottom: 11px;
+      color: var(--burgundy-dark);
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .date-input {
+      width: 100%;
+      min-height: 62px;
+      padding: 13px 17px;
+      border: 2px solid rgba(104, 27, 53, 0.14);
+      border-radius: 16px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.82);
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+    }
+
+    .date-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 5px rgba(216, 168, 78, 0.12);
+    }
+
+    .selected-date-preview {
+      min-height: 68px;
+      margin: 16px 0;
+      padding: 16px;
+      display: grid;
+      place-items: center;
+      border: 1px dashed rgba(104, 27, 53, 0.25);
+      border-radius: 16px;
+      color: var(--burgundy);
+      background: rgba(248, 216, 223, 0.34);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .validation-message {
+      min-height: 24px;
+      margin: 7px 0 13px;
+      color: var(--danger);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .wide-button {
+      width: 100%;
+    }
+
+    .itinerary-card {
+      width: min(100%, 680px);
+      padding-left: clamp(22px, 5vw, 42px);
+      padding-right: clamp(22px, 5vw, 42px);
+      text-align: left;
+    }
+
+    .itinerary-card .heading-area {
+      text-align: center;
+    }
+
+    .date-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 23px;
+      padding: 11px 17px;
+      border: 1px solid rgba(216, 168, 78, 0.4);
+      border-radius: 999px;
+      color: var(--burgundy);
+      background: rgba(255, 248, 237, 0.72);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 12px 0 27px;
+      padding-left: 46px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      bottom: 18px;
+      left: 17px;
+      width: 2px;
+      background: linear-gradient(var(--gold), var(--wine), var(--rose));
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 18px;
+      padding: 17px 17px 17px 19px;
+      border: 1px solid rgba(104, 27, 53, 0.08);
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.56);
+      box-shadow: 0 8px 25px rgba(60, 13, 32, 0.07);
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-marker {
+      position: absolute;
+      top: 18px;
+      left: -45px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      background: var(--cream);
+      box-shadow: 0 0 0 5px rgba(216, 168, 78, 0.1);
+      font-size: 0.9rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .timeline-note {
+      margin: 6px 0 24px;
+      padding: 17px;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 14px 14px 0;
+      color: var(--muted);
+      background: rgba(255, 248, 237, 0.65);
+      font-style: italic;
+      line-height: 1.6;
+    }
+
+    .confirmation-heart {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 24px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(216, 168, 78, 0.35);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.95), rgba(248, 216, 223, 0.7));
+      box-shadow:
+        0 18px 45px rgba(104, 27, 53, 0.17),
+        0 0 0 10px rgba(255, 255, 255, 0.22);
+      font-size: 3rem;
+      animation: heartbeat 1.6s ease-in-out infinite;
+    }
+
+    .final-date {
+      margin: 18px auto 22px;
+      padding: 19px;
+      border: 1px solid rgba(216, 168, 78, 0.45);
+      border-radius: 18px;
+      color: var(--burgundy);
+      background:
+        linear-gradient(145deg, rgba(255, 248, 237, 0.9), rgba(248, 216, 223, 0.6));
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.2rem, 5vw, 1.55rem);
+      font-weight: 800;
+    }
+
+    .final-actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .whatsapp-button {
+      color: white;
+      background: linear-gradient(135deg, #1f9d57, #137a41);
+      box-shadow: 0 13px 30px rgba(19, 122, 65, 0.22);
+    }
+
+    .footer-note {
+      margin: 24px auto 0;
+      color: rgba(60, 13, 32, 0.54);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      top: -30px;
+      animation: confettiFall var(--fall-duration, 2.7s) ease-in forwards;
+      animation-delay: var(--fall-delay, 0s);
+      font-size: var(--piece-size, 17px);
+      transform: rotate(var(--rotation, 0deg));
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 25px;
+      z-index: 120;
+      width: min(calc(100% - 32px), 430px);
+      padding: 14px 18px;
+      border-radius: 15px;
+      color: white;
+      background: rgba(60, 13, 32, 0.94);
+      box-shadow: var(--shadow);
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 20px);
+      transition: 300ms ease;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @keyframes screenIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.985);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes screenOut {
+      to {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.985);
+      }
+    }
+
+    @keyframes envelopeFloat {
+      0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+      }
+      50% {
+        transform: translateY(-9px) rotate(1deg);
+      }
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      14% {
+        transform: scale(1.05);
+      }
+      28% {
+        transform: scale(1);
+      }
+      42% {
+        transform: scale(1.045);
+      }
+      70% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translateY(0) rotate(0deg);
+      }
+      15% {
+        opacity: 1;
+      }
+      85% {
+        opacity: 0.75;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-115vh) rotate(35deg);
+      }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.25;
+        transform: scale(0.75) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2) rotate(25deg);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes confettiFall {
+      0% {
+        opacity: 0;
+        transform: translateY(-30px) rotate(0deg);
+      }
+      12% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(110vh) rotate(540deg);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .app-shell {
+        padding: 14px 12px 30px;
+      }
+
+      .brand {
+        margin-bottom: 13px;
+      }
+
+      .progress-wrapper {
+        margin-bottom: 16px;
+        padding: 11px 8px;
+      }
+
+      .step-label {
+        display: none;
+      }
+
+      .step-dot {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+      }
+
+      .progress-track::before,
+      .progress-fill {
+        top: 14px;
+      }
+
+      .card {
+        padding: 27px 19px;
+        border-radius: 24px;
+      }
+
+      .envelope-stage {
+        height: 205px;
+      }
+
+      .question-actions {
+        min-height: 130px;
+        flex-direction: column;
+      }
+
+      #yesButton,
+      #noButton {
+        width: 100%;
+      }
+
+      .timeline {
+        padding-left: 39px;
+      }
+
+      .timeline::before {
+        left: 14px;
+      }
+
+      .timeline-marker {
+        left: -39px;
+        width: 30px;
+        height: 30px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<!-- Mood backgrounds (switch with each stop) -->
-<div id="mood" aria-hidden="true">
-  <div class="mood-layer mood-default on" data-mood="default"></div>
-  <div class="mood-layer mood-shopping" data-mood="shopping"></div>
-  <div class="mood-layer mood-home" data-mood="home"></div>
-  <div class="mood-layer mood-dinner" data-mood="dinner"><div class="candle-glow g1"></div><div class="candle-glow g2"></div></div>
-  <div class="mood-layer mood-walk" data-mood="walk" id="starfield"><div class="moon"></div></div>
-  <div class="mood-layer mood-cocoa" data-mood="cocoa"><div class="bg-steam s1"></div><div class="bg-steam s2"></div><div class="bg-steam s3"></div></div>
-</div>
+  <div class="background-decoration" aria-hidden="true">
+    <div class="glow glow-one"></div>
+    <div class="glow glow-two"></div>
 
-<!-- Ambient floating hearts, petals, sparkles -->
-<div id="ambient" aria-hidden="true"></div>
+    <span class="floating-heart" style="left: 7%; --duration: 15s; --delay: -2s; --size: 18px;">♥</span>
+    <span class="floating-heart" style="left: 20%; --duration: 18s; --delay: -10s; --size: 13px;">♥</span>
+    <span class="floating-heart" style="left: 42%; --duration: 17s; --delay: -6s; --size: 21px;">♥</span>
+    <span class="floating-heart" style="left: 69%; --duration: 16s; --delay: -12s; --size: 15px;">♥</span>
+    <span class="floating-heart" style="left: 88%; --duration: 19s; --delay: -4s; --size: 23px;">♥</span>
 
-<!-- Top bar -->
-<header class="topbar">
-  <div class="progress" id="progress" aria-label="Progress">
-    <span>♥</span><span>♥</span><span>♥</span><span>♥</span>
-  </div>
-  <button class="music-btn" id="musicBtn" aria-label="Toggle soft music" aria-pressed="false">
-    <svg id="musicIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></svg>
-  </button>
-</header>
-
-<!-- ============ SCREEN 1: ENVELOPE ============ -->
-<section class="screen active" id="s1" aria-label="Envelope">
-  <div class="env-intro">
-    <span class="eyebrow">A little letter</span>
-    <div class="script" id="envTitle"></div>
-    <p id="envSub"></p>
+    <span class="sparkle" style="top: 12%; left: 12%; --delay: -1s;">✦</span>
+    <span class="sparkle" style="top: 24%; right: 9%; --delay: -2s;">✧</span>
+    <span class="sparkle" style="bottom: 18%; left: 8%; --delay: -0.4s;">✦</span>
+    <span class="sparkle" style="bottom: 12%; right: 16%; --delay: -1.5s;">✧</span>
   </div>
 
-  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open the envelope">
-    <div class="env-back"></div>
-    <div class="letter">
-      <span class="eyebrow">You're invited</span>
-      <div class="script" id="letterName"></div>
-      <small>to a day with me</small>
-      <span class="tiny-heart">✦ ♥ ✦</span>
-    </div>
-    <div class="env-front"></div>
-    <div class="flap"></div>
-    <div class="seal">♥</div>
-  </div>
-
-  <div class="tap-hint" id="tapHint">Tap to open</div>
-  <button class="btn" id="toQuestion">Read on →</button>
-</section>
-
-<!-- ============ SCREEN 2: THE QUESTION ============ -->
-<section class="screen" id="s2" aria-label="The question">
-  <div class="q-card glass">
-    <div id="askBlock">
-      <span class="emoji">🌷</span>
-      <h1 class="script" id="questionText"></h1>
-      <p>I have something lovely planned, just for us.</p>
-      <div class="choices">
-        <button class="btn" id="yesBtn">Yes 💖</button>
-        <button class="btn ghost" id="noBtn">No</button>
+  <div class="app-shell">
+    <header>
+      <div class="brand" aria-label="Our Lovable Day">
+        <span class="brand-mark" aria-hidden="true">♥</span>
+        <span>Our Lovable Day</span>
       </div>
-    </div>
-    <div class="yes-result" id="yesResult">
-      <span class="emoji">🥰</span>
-      <h2 class="script">I knew you'd say yes 🥰</h2>
-      <button class="btn" id="toPlan">See our plan →</button>
-    </div>
-  </div>
-</section>
 
-<!-- ============ SCREEN 3: THE PLAN ============ -->
-<section class="screen" id="s3" aria-label="Our date plan">
-  <div class="plan-head">
-    <span class="eyebrow" id="planEyebrow"></span>
-    <h1 class="script">Our Perfect Day</h1>
-    <p>Five little moments, all with you.</p>
-  </div>
+      <nav class="progress-wrapper" aria-label="Invitation progress">
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
 
-  <div class="timeline" id="timeline">
-    <div class="track"></div>
-    <div class="track-fill" id="trackFill"></div>
-    <div class="traveler" id="traveler">♥</div>
-    <!-- stops are injected from CONFIG -->
-  </div>
+          <div class="step active" data-step="1">
+            <span class="step-dot">1</span>
+            <span class="step-label">Invitation</span>
+          </div>
 
-  <div class="plan-spacer"></div>
-  <div class="plan-footer">
-    <button class="btn" id="nextStop">Next stop →</button>
-  </div>
-</section>
+          <div class="step" data-step="2">
+            <span class="step-dot">2</span>
+            <span class="step-label">Question</span>
+          </div>
 
-<!-- ============ SCREEN 4: FINALE ============ -->
-<section class="screen" id="s4" aria-label="It's a date">
-  <div class="finale glass">
-    <span class="eyebrow">Save the date</span>
-    <h1 class="script" id="finaleTitle"></h1>
-    <div class="date" id="finaleDate"></div>
+          <div class="step" data-step="3">
+            <span class="step-dot">3</span>
+            <span class="step-label">Date</span>
+          </div>
 
-    <div class="countdown" id="countdown">
-      <div class="cd"><b id="cdD">0</b><span>Days</span></div>
-      <div class="cd"><b id="cdH">0</b><span>Hours</span></div>
-      <div class="cd"><b id="cdM">0</b><span>Mins</span></div>
-      <div class="cd"><b id="cdS">0</b><span>Secs</span></div>
-    </div>
+          <div class="step" data-step="4">
+            <span class="step-dot">4</span>
+            <span class="step-label">Plan</span>
+          </div>
 
-    <button class="btn" id="heartBtn">Add to my heart 💗</button>
-
-    <div class="dress">
-      <strong>Dress code</strong>
-      Something that makes you feel beautiful <em>(spoiler: everything does).</em>
-    </div>
-
-    <div class="signature">
-      <small>Yours, always –</small>
-      <span class="script" id="sigName"></span>
-    </div>
-  </div>
-</section>
-
-<canvas id="fx" aria-hidden="true"></canvas>
-
-<script>
-/* =========================================================
-   CONFIG – edit everything personal right here 💌
-   ========================================================= */
-const CONFIG = {
-  herName:   "My Love",                 // her name
-  myName:    "Vaibhav",                 // your name
-  nickname:  "Sweetheart",              // pet name you use for her
-  dateLabel: "Saturday, 28 November",   // how the date is displayed
-  dateISO:   "2026-11-28T14:00:00+05:30", // exact start time for the countdown (IST)
-  shoppingPlace: "",                    // optional, e.g. "DLF Promenade"
-  restaurant:    "",                    // optional, e.g. "Indian Accent"
-
-  stops: [
-    { time:"Afternoon",   icon:"🛍️", title:"Shopping Together", mood:"shopping",
-      line:"First, we wander, pick things up, and I carry all your bags.",
-      secret:"You choose, I'll just stand there and say 'it looks perfect on you'.", placeKey:"shoppingPlace" },
-    { time:"Late afternoon", icon:"🏡", title:"Our Cozy Place", mood:"home",
-      line:"Then home, just us, no rush, no world outside.",
-      secret:"Music, laughter, and stealing glances at you." },
-    { time:"Evening",     icon:"🍷", title:"Fine Dine Dinner", mood:"dinner",
-      line:"Dressed up, candlelight, and the best company in the room.",
-      secret:"I already know the best view in the restaurant: you.", placeKey:"restaurant" },
-    { time:"Night",       icon:"🌙", title:"A Little Walk", mood:"walk",
-      line:"A slow walk under the night sky, holding hands.",
-      secret:"Let's walk like we have nowhere else to be." },
-    { time:"Late night",  icon:"☕", title:"Hot Chocolate & Cuddles", mood:"cocoa", mug:true,
-      line:"Back home, warm blankets, hot chocolate, and endless cuddles.",
-      secret:"The best part of the day, saved for last. 🤍" }
-  ]
-};
-
-/* =========================================================
-   Helpers
-   ========================================================= */
-const $  = (s, r=document) => r.querySelector(s);
-const $$ = (s, r=document) => [...r.querySelectorAll(s)];
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const rand = (a,b) => Math.random()*(b-a)+a;
-
-/* Fill personal text (textContent = safe) */
-$('#envTitle').textContent   = `For ${CONFIG.herName}`;
-$('#envSub').textContent     = 'from someone who adores you 💌';
-$('#letterName').textContent = CONFIG.herName;
-$('#questionText').textContent = `${CONFIG.nickname}, will you go on a date with me?`;
-$('#planEyebrow').textContent  = CONFIG.dateLabel;
-$('#finaleTitle').textContent  = `It's a date, ${CONFIG.herName} 💕`;
-$('#finaleDate').textContent   = CONFIG.dateLabel;
-$('#sigName').textContent      = CONFIG.myName;
-
-/* =========================================================
-   Ambient hearts / petals / sparkles
-   ========================================================= */
-(function ambient(){
-  if (reduceMotion) return;
-  const wrap = $('#ambient');
-  const count = innerWidth < 600 ? 16 : 26;
-  for (let i=0;i<count;i++){
-    const el = document.createElement('span');
-    const kind = Math.random();
-    if (kind < .45){ el.className='float heart'; el.textContent='♥'; el.style.fontSize = rand(10,22)+'px'; el.style.opacity=.7; }
-    else if (kind < .8){ el.className='float petal'; el.style.transform=`scale(${rand(.6,1.2)})`; }
-    else { el.className='float sparkle'; el.textContent='✦'; }
-    el.style.left = rand(0,100)+'vw';
-    el.style.setProperty('--drift', rand(-60,60)+'px');
-    el.style.animationDuration = rand(14,26)+'s';
-    el.style.animationDelay = -rand(0,26)+'s';
-    wrap.appendChild(el);
-  }
-  // stars for the night walk mood
-  const sf = $('#starfield');
-  for (let i=0;i<60;i++){
-    const s = document.createElement('div');
-    s.className='star';
-    s.style.left = rand(0,100)+'%'; s.style.top = rand(0,70)+'%';
-    const z = rand(1,2.6); s.style.width = s.style.height = z+'px';
-    s.style.animationDelay = -rand(0,3)+'s'; s.style.animationDuration = rand(2,4.5)+'s';
-    sf.appendChild(s);
-  }
-})();
-
-/* Tap anywhere on background → tiny floating heart */
-document.addEventListener('pointerdown', e => {
-  if (e.target.closest('button, .card, .envelope')) return;
-  const h = document.createElement('span');
-  h.className = 'tap-heart';
-  h.textContent = ['♥','💗','💕','♡'][Math.floor(Math.random()*4)];
-  h.style.left = e.clientX+'px'; h.style.top = e.clientY+'px';
-  h.style.setProperty('--dx', rand(-30,30)+'px');
-  h.style.setProperty('--rot', rand(-25,25)+'deg');
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(), 1700);
-});
-
-/* =========================================================
-   Screen navigation + progress hearts
-   ========================================================= */
-let currentScreen = 1;
-function updateProgress(n){
-  $$('#progress span').forEach((s,i)=>{
-    s.classList.toggle('done', i < n-1);
-    s.classList.toggle('current', i === n-1);
-  });
-}
-function goTo(n){
-  const from = $('#s'+currentScreen), to = $('#s'+n);
-  from.classList.add('leaving');
-  from.classList.remove('active');
-  setTimeout(()=>from.classList.remove('leaving'), 1000);
-  to.classList.add('active');
-  currentScreen = n;
-  updateProgress(n);
-  if (n !== 3) setMood('default');
-}
-updateProgress(1);
-
-/* Mood switcher */
-const darkMoods = ['dinner','walk','cocoa'];
-function setMood(m){
-  $$('.mood-layer').forEach(l => l.classList.toggle('on', l.dataset.mood === m));
-  document.body.classList.toggle('dark', darkMoods.includes(m));
-}
-
-/* =========================================================
-   Particle FX (confetti, heart bursts, heart shower)
-   ========================================================= */
-const fx = $('#fx'), ctx = fx.getContext('2d');
-let particles = [], fxRunning = false, DPR = Math.min(devicePixelRatio||1, 2);
-function sizeFx(){ fx.width = innerWidth*DPR; fx.height = innerHeight*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
-sizeFx(); addEventListener('resize', sizeFx);
-
-const COLORS = ['#F4A7B9','#e46f8f','#C08497','#FFD8BE','#F8D7DA','#D4AF37','#ffffff'];
-function drawHeart(x,y,s){
-  ctx.beginPath();
-  ctx.moveTo(x, y + s*0.3);
-  ctx.bezierCurveTo(x, y, x - s*0.5, y, x - s*0.5, y + s*0.3);
-  ctx.bezierCurveTo(x - s*0.5, y + s*0.6, x, y + s*0.8, x, y + s);
-  ctx.bezierCurveTo(x, y + s*0.8, x + s*0.5, y + s*0.6, x + s*0.5, y + s*0.3);
-  ctx.bezierCurveTo(x + s*0.5, y, x, y, x, y + s*0.3);
-  ctx.fill();
-}
-function spawn(opts){
-  particles.push(Object.assign({
-    x:innerWidth/2, y:innerHeight/2, vx:0, vy:0, g:.12, drag:.985,
-    size:rand(8,16), rot:rand(0,Math.PI*2), vr:rand(-.08,.08),
-    color:COLORS[Math.floor(Math.random()*COLORS.length)],
-    shape:Math.random()<.55?'heart':'petal', life:0, max:rand(160,240), sway:rand(0,Math.PI*2)
-  }, opts));
-  if (!fxRunning){ fxRunning = true; requestAnimationFrame(tick); }
-}
-function tick(){
-  ctx.clearRect(0,0,innerWidth,innerHeight);
-  particles = particles.filter(p => p.life < p.max && p.y < innerHeight + 40);
-  for (const p of particles){
-    p.life++; p.vx *= p.drag; p.vy = p.vy*p.drag + p.g;
-    p.sway += .05; p.x += p.vx + Math.sin(p.sway)*.4; p.y += p.vy; p.rot += p.vr;
-    const fade = 1 - Math.max(0, (p.life - p.max*.7) / (p.max*.3));
-    ctx.save(); ctx.globalAlpha = fade; ctx.fillStyle = p.color;
-    ctx.translate(p.x, p.y); ctx.rotate(p.rot);
-    if (p.shape === 'heart') drawHeart(0, -p.size/2, p.size);
-    else { ctx.beginPath(); ctx.ellipse(0,0,p.size*.35,p.size*.6,0,0,Math.PI*2); ctx.fill(); }
-    ctx.restore();
-  }
-  if (particles.length) requestAnimationFrame(tick);
-  else { fxRunning = false; ctx.clearRect(0,0,innerWidth,innerHeight); }
-}
-function confetti(x=innerWidth/2, y=innerHeight/2, n=140){
-  n = reduceMotion ? 20 : n;
-  for (let i=0;i<n;i++){
-    const a = rand(0, Math.PI*2), sp = rand(3,10);
-    spawn({ x, y, vx:Math.cos(a)*sp, vy:Math.sin(a)*sp - 4, g:.14 });
-  }
-}
-function heartShower(n=120){
-  n = reduceMotion ? 20 : n;
-  for (let i=0;i<n;i++){
-    setTimeout(()=>spawn({ x:rand(0,innerWidth), y:-20, vx:rand(-.5,.5), vy:rand(1,2.5), g:.02, drag:.995,
-      shape:'heart', size:rand(10,24), max:420, vr:rand(-.03,.03) }), i*25);
-  }
-}
-/* DOM heart burst (envelope) */
-function domBurst(x,y,n=16){
-  for (let i=0;i<n;i++){
-    const b = document.createElement('span');
-    b.className='burst'; b.textContent = Math.random()<.5 ? '♥' : '♡';
-    const a = (i/n)*Math.PI*2, d = rand(70,150);
-    b.style.left = x+'px'; b.style.top = y+'px';
-    b.style.setProperty('--x', Math.cos(a)*d+'px');
-    b.style.setProperty('--y', Math.sin(a)*d+'px');
-    b.style.setProperty('--r', rand(-40,40)+'deg');
-    b.style.fontSize = rand(14,26)+'px';
-    b.style.color = COLORS[Math.floor(rand(0,3))];
-    document.body.appendChild(b);
-    setTimeout(()=>b.remove(), 1600);
-  }
-}
-
-/* =========================================================
-   SCREEN 1 – Envelope
-   ========================================================= */
-const envelope = $('#envelope');
-function openEnvelope(){
-  if (envelope.classList.contains('open')) return;
-  envelope.classList.add('open');
-  $('#tapHint').style.opacity = 0;
-  const r = envelope.getBoundingClientRect();
-  setTimeout(()=>domBurst(r.left + r.width/2, r.top + r.height*.45, 18), 350);
-  setTimeout(()=>$('#toQuestion').classList.add('show'), 1700);
-}
-envelope.addEventListener('click', openEnvelope);
-envelope.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' '){ e.preventDefault(); openEnvelope(); }});
-$('#toQuestion').addEventListener('click', ()=>goTo(2));
-
-/* =========================================================
-   SCREEN 2 – Question with runaway "No"
-   ========================================================= */
-const yesBtn = $('#yesBtn'), noBtn = $('#noBtn');
-let noTries = 0, converted = false;
-
-function flee(e){
-  if (converted) return;
-  if (e) { e.preventDefault(); e.stopPropagation(); }
-  noTries++;
-  const yr = yesBtn.getBoundingClientRect();
-  // first flee: pin it at its current place, then move
-  if (!noBtn.classList.contains('runaway')){
-    const r = noBtn.getBoundingClientRect();
-    noBtn.style.left = r.left+'px'; noBtn.style.top = r.top+'px';
-    noBtn.classList.add('runaway');
-    document.body.appendChild(noBtn); // escape the glass card so it can roam the whole screen
-    void noBtn.offsetWidth;
-  }
-  const bw = noBtn.offsetWidth, bh = noBtn.offsetHeight, pad = 20;
-  let x, y, tries = 0;
-  do {
-    x = rand(pad, innerWidth - bw - pad);
-    y = rand(90, innerHeight - bh - pad);
-    tries++;
-  } while (tries < 20 && x < yr.right + 20 && x + bw > yr.left - 20 && y < yr.bottom + 20 && y + bh > yr.top - 20);
-  noBtn.style.left = x+'px'; noBtn.style.top = y+'px';
-  noBtn.style.transform = `scale(${Math.max(.7, 1 - noTries*.1)})`;
-  yesBtn.style.setProperty('--s', 1 + noTries*.15);
-
-  if (noTries >= 3){
-    converted = true;
-    setTimeout(()=>{
-      noBtn.textContent = 'Okay fine, Yes 😌';
-      noBtn.classList.add('converted');
-      noBtn.style.transform = 'scale(1)';
-      // keep the converted button fully on screen
-      const w = noBtn.offsetWidth, h = noBtn.offsetHeight;
-      noBtn.style.left = Math.min(Math.max(16, parseFloat(noBtn.style.left)), innerWidth - w - 16) + 'px';
-      noBtn.style.top  = Math.min(Math.max(90, parseFloat(noBtn.style.top)), innerHeight - h - 16) + 'px';
-    }, 450);
-  }
-}
-noBtn.addEventListener('pointerdown', e => { if (!converted) flee(e); });
-noBtn.addEventListener('mouseenter', () => { if (!converted && matchMedia('(hover:hover)').matches) flee(); });
-noBtn.addEventListener('click', e => { if (converted) sayYes(); else e.preventDefault(); });
-yesBtn.addEventListener('click', sayYes);
-
-function sayYes(){
-  const r = yesBtn.getBoundingClientRect();
-  confetti(r.left + r.width/2, r.top + r.height/2, 160);
-  noBtn.style.display = 'none';
-  $('#askBlock').style.display = 'none';
-  $('#yesResult').classList.add('show');
-}
-$('#toPlan').addEventListener('click', ()=>{ goTo(3); setTimeout(()=>revealStop(0), 700); });
-
-/* =========================================================
-   SCREEN 3 – Timeline
-   ========================================================= */
-const timeline = $('#timeline');
-CONFIG.stops.forEach((s, i) => {
-  const place = s.placeKey && CONFIG[s.placeKey] ? `<span class="place">📍 ${escapeHTML(CONFIG[s.placeKey])}</span>` : '';
-  const icon = s.mug
-    ? `<span class="mug-wrap"><span class="steam"></span><span class="steam"></span><span class="steam"></span><span class="icon">${s.icon}</span></span>`
-    : `<span class="icon">${s.icon}</span>`;
-  const el = document.createElement('div');
-  el.className = 'stop'; el.dataset.index = i;
-  el.innerHTML = `
-    <span class="time">Stop ${i+1} · ${escapeHTML(s.time)}</span>
-    <div class="card" role="button" tabindex="0" aria-label="Flip to read a secret note">
-      <div class="card-inner">
-        <div class="face front">
-          ${icon}
-          <h3>${escapeHTML(s.title)}</h3>
-          <p>${escapeHTML(s.line)}</p>
-          ${place}
-          <div class="unlock"><span class="lock">🔒</span> Tap to unlock a secret note</div>
+          <div class="step" data-step="5">
+            <span class="step-dot">5</span>
+            <span class="step-label">Confirm</span>
+          </div>
         </div>
-        <div class="face back">
-          <div class="label">✦ Secret note ✦</div>
-          <p>${escapeHTML(s.secret)}</p>
-          <div class="sig">– ${escapeHTML(CONFIG.myName)}</div>
-        </div>
-      </div>
-    </div>`;
-  timeline.appendChild(el);
-});
-function escapeHTML(t){ return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+      </nav>
+    </header>
 
-/* flip cards */
-timeline.addEventListener('click', e => {
-  const card = e.target.closest('.card'); if (!card) return;
-  card.classList.toggle('flipped');
-  const lock = card.querySelector('.lock'); if (lock) lock.textContent = '🔓';
-});
-timeline.addEventListener('keydown', e => {
-  const card = e.target.closest('.card');
-  if (card && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); card.click(); }
-});
+    <main>
+      <section class="screen active" id="screen1" aria-labelledby="openingTitle">
+        <article class="card">
+          <div class="card-content">
+            <div class="eyebrow">Made especially for you</div>
 
-let revealed = -1;
-const stopsEls = () => $$('.stop', timeline);
-function revealStop(i){
-  const el = stopsEls()[i]; if (!el) return;
-  el.classList.add('visible');
-  revealed = i;
-  setMood(CONFIG.stops[i].mood);
-  // draw the dotted line + move the traveling heart to this stop
-  requestAnimationFrame(()=>{
-    const y = el.offsetTop + 34;
-    $('#trackFill').style.height = (y - 8) + 'px';
-    $('#traveler').style.top = y + 'px';
-    setTimeout(()=>el.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth', block:'center'}), 150);
-  });
-  $('#nextStop').textContent = i === CONFIG.stops.length-1 ? 'Seal our plan 💕' : 'Next stop →';
-}
-$('#nextStop').addEventListener('click', ()=>{
-  if (revealed < CONFIG.stops.length-1) revealStop(revealed+1);
-  else { goTo(4); setTimeout(()=>heartShower(60), 900); }
-});
-addEventListener('resize', ()=>{ if (revealed >= 0){ const el = stopsEls()[revealed]; const y = el.offsetTop+34; $('#trackFill').style.height=(y-8)+'px'; $('#traveler').style.top=y+'px'; }});
+            <div class="envelope-stage" aria-hidden="true">
+              <div class="envelope" id="envelope">
+                <div class="letter" id="letterMessage">
+                  A day of little moments, planned with love.
+                </div>
+                <div class="envelope-body"></div>
+                <div class="envelope-flap"></div>
+                <div class="wax-seal">♥</div>
+              </div>
+            </div>
 
-/* =========================================================
-   SCREEN 4 – Countdown + heart shower
-   ========================================================= */
-const target = new Date(CONFIG.dateISO).getTime();
-function updateCountdown(){
-  const diff = target - Date.now();
-  if (isNaN(target)) return;
-  if (diff <= 0){
-    $('#countdown').outerHTML = `<div class="cd-done">Today is our day 💕</div>`;
-    clearInterval(cdTimer); return;
-  }
-  const d = Math.floor(diff/864e5), h = Math.floor(diff%864e5/36e5), m = Math.floor(diff%36e5/6e4), s = Math.floor(diff%6e4/1e3);
-  $('#cdD').textContent = d; $('#cdH').textContent = String(h).padStart(2,'0');
-  $('#cdM').textContent = String(m).padStart(2,'0'); $('#cdS').textContent = String(s).padStart(2,'0');
-}
-const cdTimer = setInterval(updateCountdown, 1000); updateCountdown();
-$('#heartBtn').addEventListener('click', e => {
-  heartShower(140);
-  e.currentTarget.textContent = 'Saved forever 💞';
-});
+            <h1 id="openingTitle">A Little Invitation for You 💌</h1>
 
-/* =========================================================
-   Soft music – generated live with the Web Audio API
-   ========================================================= */
-const ICON_OFF = '<path d="M11 5 6 9H3v6h3l5 4V5z"/><line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>';
-const ICON_ON  = '<path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>';
-$('#musicIcon').innerHTML = ICON_OFF;
+            <p class="subtitle" id="openingMessage">
+              I’ve planned something special, with a little shopping, good food,
+              warm drinks, and plenty of time together.
+            </p>
 
-let audio = null, playing = false, schedTimer = null, nextNote = 0, step = 0;
-// Dreamy progression: Fmaj7 – Em7 – Dm7 – Cmaj7 (as arpeggios), with soft bass
-const CHORDS = [
-  { bass:87.31,  notes:[349.23,440.00,523.25,659.25] }, // Fmaj7
-  { bass:82.41,  notes:[329.63,392.00,493.88,587.33] }, // Em7
-  { bass:73.42,  notes:[293.66,349.23,440.00,523.25] }, // Dm7
-  { bass:65.41,  notes:[261.63,329.63,392.00,493.88] }  // Cmaj7
-];
-const PATTERN = [0,1,2,3,2,1,2,3]; // gentle up-and-down arpeggio
-const NOTE_LEN = 0.42;
+            <button
+              class="primary-button"
+              id="openInvitationButton"
+              type="button"
+              aria-label="Open your date-night invitation"
+            >
+              Open Your Invitation
+            </button>
+          </div>
+        </article>
+      </section>
 
-function initAudio(){
-  const AC = window.AudioContext || window.webkitAudioContext;
-  const ac = new AC();
-  const master = ac.createGain(); master.gain.value = 0;
-  const lp = ac.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value = 2200;
-  const delay = ac.createDelay(); delay.delayTime.value = .38;
-  const fb = ac.createGain(); fb.gain.value = .32;
-  const wet = ac.createGain(); wet.gain.value = .35;
-  lp.connect(master); lp.connect(delay); delay.connect(fb); fb.connect(delay); delay.connect(wet); wet.connect(master);
-  master.connect(ac.destination);
-  return { ac, master, bus: lp };
-}
-function tone(freq, t, dur, vol, type='sine'){
-  const { ac, bus } = audio;
-  const o = ac.createOscillator(), g = ac.createGain();
-  o.type = type; o.frequency.value = freq;
-  g.gain.setValueAtTime(0.0001, t);
-  g.gain.exponentialRampToValueAtTime(vol, t + 0.04);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-  o.connect(g); g.connect(bus);
-  o.start(t); o.stop(t + dur + 0.05);
-}
-function scheduler(){
-  const { ac } = audio;
-  while (nextNote < ac.currentTime + 0.4){
-    const bar = Math.floor(step / PATTERN.length) % CHORDS.length;
-    const chord = CHORDS[bar], idx = step % PATTERN.length;
-    tone(chord.notes[PATTERN[idx]], nextNote, 1.6, 0.06, 'triangle');
-    if (idx === 0){ tone(chord.bass, nextNote, NOTE_LEN*8, 0.07, 'sine'); tone(chord.bass*2, nextNote, NOTE_LEN*8, 0.025, 'sine'); }
-    if (idx === 4 && Math.random() < .5) tone(chord.notes[3]*2, nextNote, 1.2, 0.02, 'sine'); // little sparkle
-    nextNote += NOTE_LEN; step++;
-  }
-}
-$('#musicBtn').addEventListener('click', async () => {
-  if (!audio) audio = initAudio();
-  const { ac, master } = audio;
-  if (!playing){
-    await ac.resume();
-    nextNote = ac.currentTime + 0.1;
-    schedTimer = setInterval(scheduler, 100);
-    master.gain.cancelScheduledValues(ac.currentTime);
-    master.gain.setTargetAtTime(0.9, ac.currentTime, 0.6);
-    playing = true;
-  } else {
-    master.gain.setTargetAtTime(0, ac.currentTime, 0.3);
-    setTimeout(()=>{ clearInterval(schedTimer); if (!playing) ac.suspend(); }, 900);
-    playing = false;
-  }
-  $('#musicBtn').classList.toggle('playing', playing);
-  $('#musicBtn').setAttribute('aria-pressed', playing);
-  $('#musicIcon').innerHTML = playing ? ICON_ON : ICON_OFF;
-});
-</script>
+      <section class="screen" id="screen2" aria-labelledby="questionTitle" hidden>
+        <article class="card">
+          <div class="card-content">
+            <div class="eyebrow">One important question</div>
+
+            <h2 id="questionTitle">Would you like to go on a date with me? ❤️</h2>
+
+            <p class="subtitle">
+              I promise it has been planned with a lot of love.
+            </p>
+
+            <p
+              class="playful-message"
+              id="playfulMessage"
+              aria-live="polite"
+            ></p>
+
+            <div class="question-actions" id="questionActions">
+              <button
+                class="primary-button"
+                id="yesButton"
+                type="button"
+                aria-label="Yes, I would love to go on the date"
+              >
+                Yes, I’d love to! 💕
+              </button>
+
+              <button
+                class="secondary-button"
+                id="noButton"
+                type="button"
+                aria-label="No"
+              >
+                No 🙈
+              </button>
+            </div>
+
+            <button
+              class="text-button"
+              id="respectfulDeclineButton"
+              type="button"
+            >
+              Not right now, but thank you for asking.
+            </button>
+
+            <div
+              class="decline-message"
+              id="declineMessage"
+              role="status"
+              aria-live="polite"
+            >
+              No worries at all. The invitation will be here whenever you feel
+              like it. 💛
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="screen" id="screen3" aria-labelledby="dateTitle" hidden>
+        <article class="card">
+          <div class="card-content">
+            <div class="eyebrow">Pick a day for us</div>
+
+            <h2 id="dateTitle">Choose Our Lovable Day 📅</h2>
+
+            <p class="subtitle">
+              Pick a day when you’re free, and I’ll take care of the rest.
+            </p>
+
+            <form class="date-form" id="dateForm" novalidate>
+              <label class="date-label" for="datePicker">
+                Which day feels perfect?
+              </label>
+
+              <input
+                class="date-input"
+                id="datePicker"
+                name="datePicker"
+                type="date"
+                required
+                aria-describedby="selectedDatePreview dateValidation"
+              >
+
+              <div
+                class="selected-date-preview"
+                id="selectedDatePreview"
+                aria-live="polite"
+              >
+                Your selected date will appear here.
+              </div>
+
+              <div
+                class="validation-message"
+                id="dateValidation"
+                role="alert"
+                aria-live="polite"
+              ></div>
+
+              <button
+                class="primary-button wide-button"
+                id="continueToPlanButton"
+                type="submit"
+                disabled
+              >
+                See What I Have Planned ✨
+              </button>
+            </form>
+          </div>
+        </article>
+      </section>
+
+      <section class="screen" id="screen4" aria-labelledby="planTitle" hidden>
+        <article class="card itinerary-card">
+          <div class="card-content">
+            <div class="heading-area">
+              <div class="eyebrow">A day made of little moments</div>
+
+              <h2 id="planTitle">Our Date-Night Plan ✨</h2>
+
+              <div class="date-pill" id="itineraryDate">
+                Date to be selected
+              </div>
+            </div>
+
+            <div class="timeline" id="timeline" aria-label="Date-night itinerary"></div>
+
+            <div class="timeline-note">
+              The timings are flexible. The only important part is that we enjoy
+              the day together.
+            </div>
+
+            <button
+              class="primary-button wide-button"
+              id="saveDateButton"
+              type="button"
+            >
+              Yes, Save Our Date ❤️
+            </button>
+          </div>
+        </article>
+      </section>
+
+      <section class="screen" id="screen5" aria-labelledby="confirmationTitle" hidden>
+        <article class="card">
+          <div class="card-content">
+            <div class="confirmation-heart" aria-hidden="true">❤️</div>
+
+            <div class="eyebrow">Officially confirmed</div>
+
+            <h2 id="confirmationTitle">It’s a Date! ❤️</h2>
+
+            <p class="subtitle" style="margin-bottom: 10px;">
+              Our lovable day is booked for:
+            </p>
+
+            <div class="final-date" id="finalDate">
+              Date to be selected
+            </div>
+
+            <p class="subtitle">
+              I’m officially excited. All you need to do is show up, and I’ll
+              take care of the rest.
+            </p>
+
+            <div class="final-actions">
+              <button
+                class="whatsapp-button"
+                id="whatsappButton"
+                type="button"
+                aria-label="Send your answer using WhatsApp"
+              >
+                Send My Answer on WhatsApp
+              </button>
+
+              <button
+                class="secondary-button"
+                id="calendarButton"
+                type="button"
+                aria-label="Add our lovable day to your calendar"
+              >
+                Add to My Calendar 📅
+              </button>
+
+              <button
+                class="text-button"
+                id="restartButton"
+                type="button"
+              >
+                Start Again
+              </button>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer-note">
+      Made with patience, warmth, and a little bit of courage. ♥
+    </footer>
+  </div>
+
+  <div
+    class="confetti-container"
+    id="confettiContainer"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+  <script>
+    "use strict";
+
+    /* =========================================================
+       CUSTOMIZATION
+       Edit the values in this section to personalize the invite.
+       ========================================================= */
+
+    const customization = {
+      inviterName: "Your Name",
+      recipientName: "My Favourite Person",
+
+      openingMessage:
+        "I’ve planned something special, with a little shopping, good food, warm drinks, and plenty of time together.",
+
+      whatsAppConfirmationMessage:
+        "Yes! I would love to go on this date with you ❤️ I selected {date} as our lovable day.",
+
+      itineraryItems: [
+        {
+          title: "Shopping Together 🛍️",
+          description:
+            "We’ll start with a relaxed shopping outing and choose something lovely."
+        },
+        {
+          title: "Back to Our Space 🏡",
+          description:
+            "We’ll head back, relax for a while, and get ready together."
+        },
+        {
+          title: "Dress Up for the Evening 👗",
+          description:
+            "Time to dress up and look our best for dinner."
+        },
+        {
+          title: "Fine-Dining Dinner 🍽️",
+          description:
+            "A beautiful dinner with good food, conversation, and no rush."
+        },
+        {
+          title: "A Little Walk Under the Sky 🌙",
+          description:
+            "A peaceful walk together after dinner."
+        },
+        {
+          title: "Back to Our Space 🏡",
+          description:
+            "We’ll return to our comfortable little corner."
+        },
+        {
+          title: "Hot Chocolate Together ☕",
+          description:
+            "I’ll make us warm hot chocolate."
+        },
+        {
+          title: "Movie and Cuddles 🎬",
+          description:
+            "A cosy movie, blankets, and time together."
+        },
+        {
+          title: "A Few Drinks 🥂",
+          description:
+            "Some drinks, music, and late-night conversation."
+        },
+        {
+          title: "Breakfast in Bed 🌅",
+          description:
+            "A slow morning with breakfast in bed."
+        }
+      ]
+    };
+
+    /* =========================================================
+       APPLICATION STATE
+       ========================================================= */
+
+    const appState = {
+      currentScreen: 1,
+      noClickCount: 0,
+      selectedDate: "",
+      formattedDate: ""
+    };
+
+    const noClickMessages = [
+      "Are you sure? 🥺",
+      "But I planned something really lovely…",
+      "One tiny chance? 💕",
+      "I think your heart is saying yes 😌",
+      "Okay, I’ll make the yes extra easy to find ❤️"
+    ];
+
+    const totalScreens = 5;
+
+    /* =========================================================
+       ELEMENT REFERENCES
+       ========================================================= */
+
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const progressSteps = Array.from(document.querySelectorAll(".step"));
+
+    const progressFill = document.getElementById("progressFill");
+    const envelope = document.getElementById("envelope");
+    const openingMessage = document.getElementById("openingMessage");
+    const letterMessage = document.getElementById("letterMessage");
+    const openInvitationButton = document.getElementById("openInvitationButton");
+
+    const playfulMessage = document.getElementById("playfulMessage");
+    const questionActions = document.getElementById("questionActions");
+    const yesButton = document.getElementById("yesButton");
+    const noButton = document.getElementById("noButton");
+    const respectfulDeclineButton = document.getElementById(
+      "respectfulDeclineButton"
+    );
+    const declineMessage = document.getElementById("declineMessage");
+
+    const dateForm = document.getElementById("dateForm");
+    const datePicker = document.getElementById("datePicker");
+    const selectedDatePreview = document.getElementById(
+      "selectedDatePreview"
+    );
+    const dateValidation = document.getElementById("dateValidation");
+    const continueToPlanButton = document.getElementById(
+      "continueToPlanButton"
+    );
+
+    const itineraryDate = document.getElementById("itineraryDate");
+    const timeline = document.getElementById("timeline");
+    const saveDateButton = document.getElementById("saveDateButton");
+
+    const finalDate = document.getElementById("finalDate");
+    const whatsappButton = document.getElementById("whatsappButton");
+    const calendarButton = document.getElementById("calendarButton");
+    const restartButton = document.getElementById("restartButton");
+
+    const confettiContainer = document.getElementById("confettiContainer");
+    const toast = document.getElementById("toast");
+
+    /* =========================================================
+       INITIALIZATION
+       ========================================================= */
+
+    function initializeApp() {
+      openingMessage.textContent = customization.openingMessage;
+
+      letterMessage.textContent =
+        customization.recipientName === "My Favourite Person"
+          ? "A day of little moments, planned with love."
+          : `For ${customization.recipientName}, with love.`;
+
+      setMinimumDate();
+      renderTimeline();
+      restoreSavedDate();
+      updateProgress(1);
+    }
+
+    function getLocalTodayValue() {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, "0");
+      const day = String(today.getDate()).padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    }
+
+    function setMinimumDate() {
+      datePicker.min = getLocalTodayValue();
+    }
+
+    function restoreSavedDate() {
+      try {
+        const savedDate = localStorage.getItem("lovableDaySelectedDate");
+
+        if (!savedDate || savedDate < getLocalTodayValue()) {
+          localStorage.removeItem("lovableDaySelectedDate");
+          return;
+        }
+
+        appState.selectedDate = savedDate;
+        appState.formattedDate = formatDate(savedDate);
+
+        datePicker.value = savedDate;
+        selectedDatePreview.textContent = appState.formattedDate;
+        continueToPlanButton.disabled = false;
+      } catch (error) {
+        console.info("Local storage is not available in this browser.");
+      }
+    }
+
+    /* =========================================================
+       SCREEN NAVIGATION
+       ========================================================= */
+
+    function goToScreen(screenNumber) {
+      if (
+        screenNumber < 1 ||
+        screenNumber > totalScreens ||
+        screenNumber === appState.currentScreen
+      ) {
+        return;
+      }
+
+      const currentScreenElement = document.getElementById(
+        `screen${appState.currentScreen}`
+      );
+      const nextScreenElement = document.getElementById(
+        `screen${screenNumber}`
+      );
+
+      currentScreenElement.classList.add("leaving");
+
+      window.setTimeout(() => {
+        currentScreenElement.classList.remove("active", "leaving");
+        currentScreenElement.hidden = true;
+
+        nextScreenElement.hidden = false;
+        nextScreenElement.classList.add("active");
+
+        appState.currentScreen = screenNumber;
+        updateProgress(screenNumber);
+
+        window.scrollTo({
+          top: 0,
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth"
+        });
+
+        const focusTarget =
+          nextScreenElement.querySelector("h1, h2, button, input");
+
+        if (focusTarget) {
+          focusTarget.setAttribute("tabindex", "-1");
+          focusTarget.focus({ preventScroll: true });
+
+          if (!focusTarget.matches("button, input")) {
+            window.setTimeout(() => {
+              focusTarget.removeAttribute("tabindex");
+            }, 500);
+          }
+        }
+
+        if (screenNumber === 4) {
+          revealTimelineItems();
+        }
+
+        if (screenNumber === 5) {
+          createCelebration(42);
+        }
+      }, 280);
+    }
+
+    function updateProgress(activeStep) {
+      progressSteps.forEach((step, index) => {
+        const stepNumber = index + 1;
+        step.classList.toggle("active", stepNumber === activeStep);
+        step.classList.toggle("complete", stepNumber < activeStep);
+
+        const dot = step.querySelector(".step-dot");
+        dot.textContent = stepNumber < activeStep ? "✓" : String(stepNumber);
+      });
+
+      const completedSegments = activeStep - 1;
+      const progressWidth =
+        completedSegments === 0
+          ? 0
+          : (completedSegments / (totalScreens - 1)) * 80;
+
+      progressFill.style.width = `${progressWidth}%`;
+    }
+
+    /* =========================================================
+       OPENING INVITATION
+       ========================================================= */
+
+    openInvitationButton.addEventListener("click", () => {
+      envelope.classList.add("opening");
+      openInvitationButton.disabled = true;
+
+      window.setTimeout(() => {
+        goToScreen(2);
+        openInvitationButton.disabled = false;
+      }, 850);
+    });
+
+    /* =========================================================
+       YES AND NO INTERACTION
+       ========================================================= */
+
+    yesButton.addEventListener("click", acceptDateInvitation);
+
+    function acceptDateInvitation() {
+      createCelebration(28);
+
+      window.setTimeout(() => {
+        goToScreen(3);
+      }, 550);
+    }
+
+    noButton.addEventListener("click", () => {
+      if (appState.noClickCount >= noClickMessages.length) {
+        return;
+      }
+
+      appState.noClickCount += 1;
+
+      playfulMessage.textContent =
+        noClickMessages[appState.noClickCount - 1];
+
+      updateYesNoButtons(appState.noClickCount);
+    });
+
+    function updateYesNoButtons(clickCount) {
+      const yesWidths = [58, 68, 78, 89, 100];
+      const yesFontSizes = [1.01, 1.04, 1.07, 1.1, 1.12];
+      const noScales = [0.91, 0.8, 0.68, 0.54, 0];
+      const noOpacity = [0.92, 0.8, 0.66, 0.48, 0];
+
+      const index = Math.min(clickCount - 1, 4);
+
+      if (window.innerWidth > 520) {
+        yesButton.style.width = `${yesWidths[index]}%`;
+      } else {
+        yesButton.style.width = "100%";
+        yesButton.style.minHeight = `${54 + clickCount * 5}px`;
+      }
+
+      yesButton.style.fontSize = `${yesFontSizes[index]}rem`;
+      noButton.style.transform = `scale(${noScales[index]})`;
+      noButton.style.opacity = String(noOpacity[index]);
+
+      if (clickCount === 2) {
+        noButton.textContent = "Really? 🙈";
+      }
+
+      if (clickCount === 3) {
+        noButton.textContent = "Still no? 🥺";
+      }
+
+      if (clickCount === 4) {
+        noButton.textContent = "Tiny no";
+      }
+
+      if (clickCount >= 5) {
+        yesButton.textContent = "Okay, let’s make it a date! ❤️";
+        yesButton.classList.add("final-growth");
+        noButton.classList.add("hidden-no");
+        noButton.disabled = true;
+        questionActions.style.display = "flex";
+      }
+    }
+
+    respectfulDeclineButton.addEventListener("click", () => {
+      declineMessage.classList.add("visible");
+      respectfulDeclineButton.setAttribute("aria-expanded", "true");
+      declineMessage.scrollIntoView({
+        block: "nearest",
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth"
+      });
+    });
+
+    /* =========================================================
+       DATE SELECTION
+       ========================================================= */
+
+    datePicker.addEventListener("change", handleDateSelection);
+    datePicker.addEventListener("input", handleDateSelection);
+
+    function handleDateSelection() {
+      const selectedValue = datePicker.value;
+      const todayValue = getLocalTodayValue();
+
+      dateValidation.textContent = "";
+
+      if (!selectedValue) {
+        appState.selectedDate = "";
+        appState.formattedDate = "";
+        selectedDatePreview.textContent =
+          "Your selected date will appear here.";
+        continueToPlanButton.disabled = true;
+        return;
+      }
+
+      if (selectedValue < todayValue) {
+        appState.selectedDate = "";
+        appState.formattedDate = "";
+        datePicker.value = "";
+        selectedDatePreview.textContent =
+          "Please choose today or a future date.";
+        dateValidation.textContent =
+          "Past dates are unavailable. Please choose another lovely day.";
+        continueToPlanButton.disabled = true;
+        return;
+      }
+
+      appState.selectedDate = selectedValue;
+      appState.formattedDate = formatDate(selectedValue);
+
+      selectedDatePreview.textContent = appState.formattedDate;
+      continueToPlanButton.disabled = false;
+
+      try {
+        localStorage.setItem(
+          "lovableDaySelectedDate",
+          appState.selectedDate
+        );
+      } catch (error) {
+        console.info("Unable to save the selected date locally.");
+      }
+    }
+
+    dateForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!appState.selectedDate) {
+        dateValidation.textContent =
+          "Please choose a day before seeing the plan.";
+        datePicker.focus();
+        return;
+      }
+
+      itineraryDate.textContent = `📅 ${appState.formattedDate}`;
+      finalDate.textContent = appState.formattedDate;
+      goToScreen(4);
+    });
+
+    function parseLocalDate(dateValue) {
+      const parts = dateValue.split("-").map(Number);
+
+      return new Date(
+        parts[0],
+        parts[1] - 1,
+        parts[2],
+        12,
+        0,
+        0
+      );
+    }
+
+    function formatDate(dateValue) {
+      const date = parseLocalDate(dateValue);
+
+      return new Intl.DateTimeFormat("en-GB", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }).format(date);
+    }
+
+    /* =========================================================
+       ITINERARY
+       ========================================================= */
+
+    function renderTimeline() {
+      timeline.innerHTML = "";
+
+      customization.itineraryItems.forEach((item, index) => {
+        const timelineItem = document.createElement("article");
+        timelineItem.className = "timeline-item";
+        timelineItem.style.transitionDelay = `${index * 45}ms`;
+
+        const marker = document.createElement("div");
+        marker.className = "timeline-marker";
+        marker.setAttribute("aria-hidden", "true");
+        marker.textContent = String(index + 1);
+
+        const title = document.createElement("h3");
+        title.textContent = item.title;
+
+        const description = document.createElement("p");
+        description.textContent = item.description;
+
+        timelineItem.append(marker, title, description);
+        timeline.appendChild(timelineItem);
+      });
+    }
+
+    function revealTimelineItems() {
+      const items = Array.from(
+        document.querySelectorAll(".timeline-item")
+      );
+
+      if (!("IntersectionObserver" in window)) {
+        items.forEach((item) => item.classList.add("visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.14,
+          rootMargin: "0px 0px -25px 0px"
+        }
+      );
+
+      items.forEach((item) => observer.observe(item));
+    }
+
+    saveDateButton.addEventListener("click", () => {
+      if (!appState.selectedDate) {
+        showToast("Please choose a date first.");
+        goToScreen(3);
+        return;
+      }
+
+      finalDate.textContent = appState.formattedDate;
+      goToScreen(5);
+    });
+
+    /* =========================================================
+       WHATSAPP SHARING
+       ========================================================= */
+
+    whatsappButton.addEventListener("click", () => {
+      if (!appState.formattedDate) {
+        showToast("Please choose a date before sharing your answer.");
+        return;
+      }
+
+      const message = customization.whatsAppConfirmationMessage.replace(
+        "{date}",
+        appState.formattedDate
+      );
+
+      const whatsappUrl =
+        "https://wa.me/?text=" + encodeURIComponent(message);
+
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+    });
+
+    /* =========================================================
+       ICS CALENDAR DOWNLOAD
+       ========================================================= */
+
+    calendarButton.addEventListener("click", () => {
+      if (!appState.selectedDate) {
+        showToast("Please choose a date before adding it to your calendar.");
+        return;
+      }
+
+      downloadCalendarFile();
+    });
+
+    function downloadCalendarFile() {
+      const startDate = toICSDate(appState.selectedDate);
+      const nextDateValue = getNextDateValue(appState.selectedDate);
+      const endDate = toICSDate(nextDateValue);
+      const timestamp = getCurrentICSTimestamp();
+      const uid =
+        `lovable-day-${startDate}-${Date.now()}@date-night-invitation`;
+
+      const description =
+        "Shopping, getting ready together, fine dining, a walk, hot chocolate, a movie, drinks, and breakfast in bed.";
+
+      const organizerNote =
+        customization.inviterName !== "Your Name"
+          ? ` Planned by ${customization.inviterName}.`
+          : "";
+
+      const calendarContent = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//Lovable Day Invitation//EN",
+        "CALSCALE:GREGORIAN",
+        "METHOD:PUBLISH",
+        "BEGIN:VEVENT",
+        `UID:${uid}`,
+        `DTSTAMP:${timestamp}`,
+        `DTSTART;VALUE=DATE:${startDate}`,
+        `DTEND;VALUE=DATE:${endDate}`,
+        "SUMMARY:Our Lovable Day ❤️",
+        `DESCRIPTION:${escapeICSText(description + organizerNote)}`,
+        "STATUS:CONFIRMED",
+        "TRANSP:TRANSPARENT",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const calendarBlob = new Blob([calendarContent], {
+        type: "text/calendar;charset=utf-8"
+      });
+
+      const downloadUrl = URL.createObjectURL(calendarBlob);
+      const downloadLink = document.createElement("a");
+
+      downloadLink.href = downloadUrl;
+      downloadLink.download = "our-lovable-day.ics";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      downloadLink.remove();
+
+      window.setTimeout(() => {
+        URL.revokeObjectURL(downloadUrl);
+      }, 1000);
+
+      showToast("Your lovable day has been downloaded for your calendar. ❤️");
+    }
+
+    function toICSDate(dateValue) {
+      return dateValue.replaceAll("-", "");
+    }
+
+    function getNextDateValue(dateValue) {
+      const date = parseLocalDate(dateValue);
+      date.setDate(date.getDate() + 1);
+
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    }
+
+    function getCurrentICSTimestamp() {
+      return new Date()
+        .toISOString()
+        .replace(/[-:]/g, "")
+        .replace(/\.\d{3}Z$/, "Z");
+    }
+
+    function escapeICSText(value) {
+      return value
+        .replace(/\\/g, "\\\\")
+        .replace(/\n/g, "\\n")
+        .replace(/,/g, "\\,")
+        .replace(/;/g, "\\;");
+    }
+
+    /* =========================================================
+       CELEBRATION EFFECT
+       ========================================================= */
+
+    function createCelebration(pieceCount = 30) {
+      const celebrationPieces = ["♥", "♡", "✦", "✧", "●"];
+      const colors = [
+        "#681b35",
+        "#c94f68",
+        "#d8a84e",
+        "#ebaab8",
+        "#f4d58d"
+      ];
+
+      confettiContainer.innerHTML = "";
+
+      for (let index = 0; index < pieceCount; index += 1) {
+        const piece = document.createElement("span");
+        const symbol =
+          celebrationPieces[
+            Math.floor(Math.random() * celebrationPieces.length)
+          ];
+
+        piece.className = "confetti-piece";
+        piece.textContent = symbol;
+        piece.style.left = `${Math.random() * 100}%`;
+        piece.style.color =
+          colors[Math.floor(Math.random() * colors.length)];
+        piece.style.setProperty(
+          "--fall-duration",
+          `${2.1 + Math.random() * 1.8}s`
+        );
+        piece.style.setProperty(
+          "--fall-delay",
+          `${Math.random() * 0.5}s`
+        );
+        piece.style.setProperty(
+          "--piece-size",
+          `${11 + Math.random() * 14}px`
+        );
+        piece.style.setProperty(
+          "--rotation",
+          `${Math.random() * 180}deg`
+        );
+
+        confettiContainer.appendChild(piece);
+      }
+
+      window.setTimeout(() => {
+        confettiContainer.innerHTML = "";
+      }, 4600);
+    }
+
+    /* =========================================================
+       TOAST MESSAGE
+       ========================================================= */
+
+    let toastTimer;
+
+    function showToast(message) {
+      window.clearTimeout(toastTimer);
+      toast.textContent = message;
+      toast.classList.add("visible");
+
+      toastTimer = window.setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 3200);
+    }
+
+    /* =========================================================
+       RESET EXPERIENCE
+       ========================================================= */
+
+    restartButton.addEventListener("click", resetExperience);
+
+    function resetExperience() {
+      appState.currentScreen = 5;
+      appState.noClickCount = 0;
+      appState.selectedDate = "";
+      appState.formattedDate = "";
+
+      try {
+        localStorage.removeItem("lovableDaySelectedDate");
+      } catch (error) {
+        console.info("Unable to clear locally saved data.");
+      }
+
+      dateForm.reset();
+      datePicker.min = getLocalTodayValue();
+      selectedDatePreview.textContent =
+        "Your selected date will appear here.";
+      dateValidation.textContent = "";
+      continueToPlanButton.disabled = true;
+
+      playfulMessage.textContent = "";
+      declineMessage.classList.remove("visible");
+      respectfulDeclineButton.setAttribute("aria-expanded", "false");
+
+      yesButton.textContent = "Yes, I’d love to! 💕";
+      yesButton.style.width = "";
+      yesButton.style.minHeight = "";
+      yesButton.style.fontSize = "";
+      yesButton.classList.remove("final-growth");
+
+      noButton.textContent = "No 🙈";
+      noButton.style.transform = "";
+      noButton.style.opacity = "";
+      noButton.classList.remove("hidden-no");
+      noButton.disabled = false;
+
+      envelope.classList.remove("opening");
+
+      itineraryDate.textContent = "Date to be selected";
+      finalDate.textContent = "Date to be selected";
+
+      document.querySelectorAll(".timeline-item").forEach((item) => {
+        item.classList.remove("visible");
+      });
+
+      goToScreen(1);
+    }
+
+    initializeApp();
+  </script>
 </body>
 </html>
